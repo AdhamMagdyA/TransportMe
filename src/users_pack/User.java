@@ -1,5 +1,7 @@
 package users_pack;
 
+import storage_pack.ListStorage;
+
 
 public class User {
     String userName,mobileNumber,password,email;
@@ -19,9 +21,16 @@ public class User {
     }
     
     public boolean login(){
-        return false;
+        return ListStorage.getInstance().login(this.userName, this.password);
     }
-    public boolean register(){
-        return false;
+    public void register(){
+        Admin.addPendingRegistrations(this);
+    }
+    
+    public String getUsername(){
+        return this.userName;
+    }
+    public String getPassword(){
+        return this.password;
     }
 }

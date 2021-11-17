@@ -1,6 +1,7 @@
 package users_pack;
 
 import java.util.List;
+import storage_pack.ListStorage;
 
 public class Admin extends User{
     static List<User> pendingRegistrations;
@@ -9,11 +10,17 @@ public class Admin extends User{
         super(userName, mobileNumber,password,email);
     }
     
-    public void addPendingRegistrations(User user){
-        
+    public static void addPendingRegistrations(User user){
+        pendingRegistrations.add(user);
     }
     
-    public void acceptRegistration(String userName){
-        
+    public boolean acceptRegistration(String userName){
+        for( User user : pendingRegistrations ){
+            if( user.getUsername().equals("userName") ){
+                ListStorage.getInstance().storeUser(user);
+                return true;
+            }
+        }
+        return false;
     }
 }

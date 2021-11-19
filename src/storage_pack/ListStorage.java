@@ -7,7 +7,6 @@ import users_pack.Driver;
 import users_pack.User;
 
 public class ListStorage implements UserStorage{
-    
     User loggedin;
     static List<User> registeredUsers;
     private static final ListStorage instance  = new ListStorage();

@@ -1,5 +1,4 @@
 package storage_pack;
-
 import users_pack.User;
 
 public interface UserStorage {

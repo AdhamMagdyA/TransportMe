@@ -1,6 +1,7 @@
 package rides;
 import java.util.List;
 import users_pack.Driver;
+
 public class Area {
     private String name;
     private List<Driver> driversList;

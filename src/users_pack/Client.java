@@ -22,4 +22,11 @@ public class Client extends User {
         // should set area and user to rideRequest obj
         return true;
     }
+    public void add_rating(Driver dr , int r)
+    {
+
+        Rating rate = new Rating(this,r);
+        dr.list.add(rate);
+
+    }
 }

@@ -1,6 +1,7 @@
 package users_pack;
 
-import storage_pack.ListStorage;
+import transportme.TransportMe;
+
 
 
 public class User {
@@ -20,9 +21,6 @@ public class User {
         this.email = null;
     }
     
-    public boolean login(){
-        return ListStorage.getInstance().login(this.userName, this.password);
-    }
     public void register(){
         Admin.addPendingRegistrations(this);
     }

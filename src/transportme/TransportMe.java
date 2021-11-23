@@ -21,6 +21,28 @@ public class TransportMe {
         System.out.println("User is successfully registered");
     }
     
+    public static void login(String username, String password){
+        if(searchRegisteredUser(username)){
+            for(User u : registeredUsers){
+                if(u.getUsername().equals(username) && u.getPassword().equals(password) ){
+                    loggedIn = u;
+                    System.out.println("logged in successfully");
+                }
+            }
+            System.out.println("Wrong credentials");
+        }else{
+            System.out.println("user not found");
+        }
+    }
+    
+    public static boolean searchRegisteredUser(String username){
+        for(User u : registeredUsers){
+            if(u.getUsername().equals(username))
+                return true;
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         
     }

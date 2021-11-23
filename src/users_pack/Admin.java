@@ -1,6 +1,5 @@
 package users_pack;
 import java.util.List;
-import storage_pack.ListStorage;
 import transportme.TransportMe;
 
 public class Admin extends User{

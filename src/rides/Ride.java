@@ -34,4 +34,5 @@ public class Ride {
     public void addOffer(Offer offer){
         offers.add(offer);
     }
+
 }

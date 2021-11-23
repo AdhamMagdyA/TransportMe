@@ -1,5 +1,5 @@
 package users_pack;
-
+import rides.Offer;
 import rides.Ride;
 
 public class Client extends User {
@@ -16,12 +16,17 @@ public class Client extends User {
         id++;
         email="";
     }
-    public boolean requestRide(String areaName){
+    public boolean requestRide(String source,String destination){
         // if area exists
-        Ride rideRequest = new Ride(this);
+        Ride rideRequest = new Ride(this,source,destination);
         //notify drivers with same area in favourite areas
         // should set area and user to rideRequest obj
         return true;
+    }
+    public void viewOffers(){
+        for (Offer offer:rideRequest.offers){
+            offer.getOfferInfo();
+        }
     }
     public void add_rating(Driver dr , int r)
     {
@@ -30,9 +35,5 @@ public class Client extends User {
         dr.list.add(rate);
 
     }
-    public void viewOffers(){
-        for (Offer offer:rideRequest.offers){
-            offer.getOfferInfo();
-        }
-    }
+
 }

@@ -1,9 +1,10 @@
 package users_pack;
 import java.util.List;
 import storage_pack.ListStorage;
+import transportme.TransportMe;
 
 public class Admin extends User{
-    static List<User> pendingRegistrations;
+    static List<User> penddingRegistrations;
      static List<User> suspendedUsers; // if  the admin suspended any user , this user will add to the list and cannot be able to login
      static List<User> unsuspendedUsers; // if the admin canceled the user's suspending , this user will add to the list and able to login the system
                                          // because if any user will login to the system , we check this user in these two lists     
@@ -12,7 +13,7 @@ public class Admin extends User{
     }
     
     public static void addPendingRegistrations(User user){
-        pendingRegistrations.add(user);
+        penddingRegistrations.add(user);
     }
      public static void suspendUser (User user){
         suspendedUsers.add(user);
@@ -22,12 +23,25 @@ public class Admin extends User{
     }
     
     public boolean acceptRegistration(String userName){
-        for( User user : pendingRegistrations ){
+        for( User user : penddingRegistrations ){
             if( user.getUsername().equals("userName") ){
-                ListStorage.getInstance().storeUser(user);
+                TransportMe.storeUser(user);
                 return true;
             }
         }
+        System.out.println("User not found");
+        return false;
+    }
+    
+    public boolean rejectRegistration(String userName){
+        for( User user : penddingRegistrations ){
+            if( user.getUsername().equals("userName") ){
+                penddingRegistrations.remove(user);
+                System.out.println("Registration rejected successfully");
+                return true;
+            }
+        }
+        System.out.println("User not found");
         return false;
     }
 }

@@ -1,14 +1,17 @@
 package transportme;
 
 import java.util.List;
+
+import rides.Ride;
 import users_pack.*;
 
 public class TransportMe {
 
-    static User loggedIn = null;
-    static List<User> registeredUsers = null;
-    static List<Driver> drivers = null;
-    static List<Client> clients = null;
+    public static User loggedIn = null;
+    public static List<User> registeredUsers = null;
+    public static List<Driver> drivers = null;
+    public static List<Client> clients = null;
+    public static List<Ride> rides = null;
     
     public static void storeUser(User u){
         registeredUsers.add(u);

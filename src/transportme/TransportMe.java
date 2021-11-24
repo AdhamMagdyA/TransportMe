@@ -17,8 +17,14 @@ public class TransportMe {
     private static Admin systemAdmin = new Admin("admin","123456789","password","email");
     public static void storeUser(User u){
         registeredUsers.add(u);
-        if(u instanceof Driver) drivers.add((Driver) u);
-        if(u instanceof Client) clients.add((Client) u);
+        if(u instanceof Driver) {
+            drivers.add((Driver) u);
+            registeredUsers.add(u);
+        }
+        if(u instanceof Client) {
+            clients.add((Client) u);
+            registeredUsers.add(u);
+        }
 
         System.out.println("User is successfully registered");
     }
@@ -162,7 +168,7 @@ public class TransportMe {
             }
             if (choice==2){
                 System.out.println("Enter User' name");
-                String name = input.nextLine();
+                String name = input.next();
                 for (User user :registeredUsers){
                     if (user.getUsername().equals(name)){
                         systemAdmin.suspendUser(user);
@@ -174,7 +180,7 @@ public class TransportMe {
             }
             if (choice==3){
                 System.out.println("Enter User' name");
-                String name = input.nextLine();
+                String name = input.next();
                 for (User user :suspendedUsers){
                     if (user.getUsername().equals(name)){
                         systemAdmin.unSuspendUser(user);

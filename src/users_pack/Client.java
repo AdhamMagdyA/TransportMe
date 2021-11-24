@@ -14,12 +14,8 @@ public class Client extends User {
     // Email attribute is optional
     public Client(String userName, String mobileNumber,String password){
         super(userName, mobileNumber,password);
-        id++;
-        email="";
-    }
+        this.id=count;
 
-    public int getId() {
-        return id;
     }
 
     public void requestRide(String source,String destination){
@@ -39,8 +35,7 @@ public class Client extends User {
             offer.getOfferInfo();
         }
     }
-    public void addRating(Driver dr , int r)
-    {
+    public void addRating(Driver dr , int r) {
         Rating rate = new Rating(this,r);
         dr.list.add(rate);
     }

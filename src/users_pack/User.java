@@ -21,10 +21,6 @@ public class User {
         this.password = password;
         this.email = null;
     }
-    
-    public void register(){
-        Admin.addPendingRegistrations(this);
-    }
 
     public String getUsername(){
         return this.userName;

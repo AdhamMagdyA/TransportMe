@@ -1,7 +1,7 @@
 package users_pack;
 
 public class Rating {
-    private Client client;
+    public Client client;
     public int rating;
 
 

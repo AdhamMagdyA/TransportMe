@@ -1,5 +1,5 @@
 package transportme;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import rides.*;
@@ -8,12 +8,13 @@ import users_pack.*;
 public class TransportMe {
 
     public static User loggedIn = null;
-    public static List<User> registeredUsers = null;
-    public static List<Driver> drivers = null;
-    public static List<Client> clients = null;
-    public static List<Ride> rides = null;
+    public static ArrayList<Driver> pendingRegistrations=new ArrayList<Driver>();
+    public static ArrayList<User> suspendedUsers=new ArrayList<User>(); // if  the admin suspended any user , this user will add to the list and cannot be able to login
+    public static ArrayList<User> registeredUsers=new ArrayList<User>() ;
+    public static ArrayList<Driver> drivers =new ArrayList<Driver>();
+    public static ArrayList<Client> clients=new ArrayList<Client>();
+    public static ArrayList<Ride> rides=new ArrayList<Ride>() ;
     private static Admin systemAdmin = new Admin("admin","123456789","password","email");
-    
     public static void storeUser(User u){
         registeredUsers.add(u);
         if(u instanceof Driver) drivers.add((Driver) u);
@@ -27,7 +28,11 @@ public class TransportMe {
         }
         return false;
     }
-
+    static void displayMenu() {
+        System.out.println("1-REGISTER .");
+        System.out.println("2-SIGN IN.");
+        System.out.println("3-EXIT .");
+    }
     public static void displayClientMenu(){
         System.out.println("1-Request Ride.");
         System.out.println("2-View Offers.");
@@ -53,7 +58,7 @@ public class TransportMe {
                 String name;
                 int rating;
                 name = input.nextLine();
-                if (searchRegisteredUser(name)){
+                if (searchDriver(name)){
                     for (Driver driver: TransportMe.drivers){
                         if (driver.getUsername().equals(name)){
                             System.out.println("Enter your rating from 1 to 5 .");
@@ -76,7 +81,6 @@ public class TransportMe {
             }
         }
     }
-
     public static void displayDriverMenu(){
         System.out.println("1-List Rides in Favourite Area.");
         System.out.println("2-Display Rating List.");
@@ -99,32 +103,103 @@ public class TransportMe {
                     price = input.nextDouble();
                     System.out.println("Enter price.");
                     ((Driver) loggedIn).suggestPrice(price,rideID);
+                    displayDriverMenu();
+                }
+                if (choice==2){
+                    displayDriverMenu();
                 }
 
             }
             if (choice==2) {
-
+                ((Driver) loggedIn).showRatingList();
             }
 
         }
-
+        displayMenu();
     }
     public static void displayAdminMenu(){
+        System.out.println("1-List Pending Registration for Drivers.");
+        System.out.println("2-Suspend User .");
+        System.out.println("3-UnSuspend User.");
+        System.out.println("4-Back.");
+        choice = input.nextInt();
+        while (choice!=4){
+            if (choice==1){
+                systemAdmin.listPendingRegistrations();
+                System.out.println("1-Choose Driver To Approve or Reject.");
+                System.out.println("2-Back.");
+                if (choice==1){
+                    System.out.println("Enter Driver's user name");
+                    String name = input.nextLine();
+                    for (Driver driver: pendingRegistrations){
+                        if (driver.getUsername().equals(name)){
+                            System.out.println("1-Approve Driver.");
+                            System.out.println("2-Reject Driver.");
+                            choice=input.nextInt();
+                            if (choice==1){
+                                systemAdmin.acceptRegistration(name);
+                            }
+                            if (choice==1){
+                                systemAdmin.rejectRegistration(name);
+                            }
+                        }
+                    }
+                }
+                if (choice==2){
+                    displayAdminMenu();
+                }
 
-
+            }
+            if (choice==2){
+                System.out.println("Enter User' name");
+                String name = input.nextLine();
+                for (User user :registeredUsers){
+                    if (user.getUsername().equals(name)){
+                        systemAdmin.suspendUser(user);
+                    }
+                    else {
+                        System.out.println("user not found");
+                    }
+                }
+            }
+            if (choice==3){
+                System.out.println("Enter User' name");
+                String name = input.nextLine();
+                for (User user :suspendedUsers){
+                    if (user.getUsername().equals(name)){
+                        systemAdmin.unSuspendUser(user);
+                    }
+                    else {
+                        System.out.println("user not found");
+                    }
+                }
+            }
+            if (choice==4){
+                displayMenu();
+            }
+        }
     }
-
-
-    public static boolean login(String username, String password){
+    public static boolean searchSuspended(String userName){
+        for (User user: suspendedUsers){
+            if (user.getUsername().equals(userName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean login(String userName, String password){
         boolean status=false;
-        if(systemAdmin.getUsername().equals(username)&&systemAdmin.getPassword().equals(password)){
+        if(systemAdmin.getUsername().equals(userName)&&systemAdmin.getPassword().equals(password)){
             displayAdminMenu();
             System.out.println("ADMIN LOGGED IN SUCCESSFULLY");
             status=true;
         }
-        else if (searchRegisteredUser(username)){
+        else if (searchSuspended(userName)){
+            System.out.println("Sorry, You have been suspended by Admin");
+        }
+        else if (searchRegisteredUser(userName)){
             for(User u : registeredUsers){
-                if(u.getUsername().equals(username) && u.getPassword().equals(password) ){
+                if(u.getUsername().equals(userName) && u.getPassword().equals(password) ){
                     loggedIn = u;
                     System.out.println("logged in successfully");
                     status=true;
@@ -143,11 +218,6 @@ public class TransportMe {
                 return true;
         }
         return false;
-    }
-    static void displayMenu() {
-        System.out.println("1-REGISTER .");
-        System.out.println("2-SIGN IN.");
-        System.out.println("3-EXIT .");
     }
     static void register(int ch){
         if (ch==1){
@@ -212,18 +282,11 @@ public class TransportMe {
                     }
 
                 }
-                else {
 
-                }
-
-                displayMenu();
             }
+            displayMenu();
         }
         while (choice != 3);
-
-
-
-
     }
     
 }

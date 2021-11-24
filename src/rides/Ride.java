@@ -34,6 +34,7 @@ public class Ride {
     }
     public void addOffer(Offer offer){
         offers.add(offer);
+        System.out.println("Offer added successfully");
     }
     public boolean notifyDrivers(String source){
         boolean found=false;

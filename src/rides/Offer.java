@@ -24,5 +24,6 @@ public class Offer {
         System.out.println("Offer id is"+id);
         driver.getDriverInfo();
         System.out.println("Suggested price is"+price);
+        System.out.println("=================================");
     }
 }

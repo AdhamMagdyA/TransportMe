@@ -35,12 +35,12 @@ public class Driver extends User{
             }
         }
     }
-    public void showRatingList(int r1) {
+    public void showRatingList() {
         for (Rating rating : list){
             System.out.println("rating is :" +rating.rating);
             System.out.println("Client name is :" +rating.client.getUsername());
+            System.out.println("=================================");
         }
-
     }
     public double calculateAverageRating() {
         int sum = 0;
@@ -53,6 +53,7 @@ public class Driver extends User{
         System.out.println("Driver Name is"+userName);
         System.out.println("Driver id is"+id);
         System.out.println("Driver total rating is"+calculateAverageRating());
+        System.out.println("=================================");
     }
 
     public String getDrivingLicense() {

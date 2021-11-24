@@ -44,14 +44,12 @@ public class TransportMe {
                 System.out.println("Enter source and destination area names.");
                 String source;
                 String destination;
-                source = input.nextLine();
-                destination = input.nextLine();
+                source = input.next();
+                destination = input.next();
                 ((Client) loggedIn).requestRide(source,destination);
-                break;
             }
             if (choice==2){
                 ((Client) loggedIn).viewOffers();
-                break;
             }
             if (choice==3){
                 System.out.println("Enter driver's name .");
@@ -70,15 +68,17 @@ public class TransportMe {
                             else {
                                 System.out.println("wrong number, please try again.");
                             }
-                            break;
+
                         }
                     }
                 }
                 else {
                     System.out.println("There is no such driver in the system");
-                    break;
+
                 }
+
             }
+            displayClientMenu();
         }
     }
     public static void displayDriverMenu(){
@@ -115,7 +115,7 @@ public class TransportMe {
             }
 
         }
-        displayMenu();
+
     }
     public static void displayAdminMenu(){
         System.out.println("1-List Pending Registration for Drivers.");
@@ -175,7 +175,7 @@ public class TransportMe {
                 }
             }
             if (choice==4){
-                displayMenu();
+                return;
             }
         }
     }
@@ -259,7 +259,7 @@ public class TransportMe {
                     register(ip);
                     break;
                 }
-                displayMenu();
+
             }
             // signIn
             if (choice == 2) {
@@ -270,15 +270,15 @@ public class TransportMe {
                 if (status){
                     if (loggedIn instanceof Client){
                         displayClientMenu();
-                        break;
+
                     }
                     if (loggedIn instanceof Driver){
                         displayDriverMenu();
-                        break;
+
                     }
                     if (loggedIn instanceof Admin){
                         displayAdminMenu();
-                        break;
+
                     }
 
                 }

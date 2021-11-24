@@ -31,6 +31,11 @@ public class Client extends User {
         }
     }
     public void viewOffers(){
+        if(rideRequest.offers.size()==0||rideRequest.offers==null)
+        {
+            System.out.println("no offers yet.");
+        }
+
         for (Offer offer:rideRequest.offers){
             offer.getOfferInfo();
         }

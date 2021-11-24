@@ -1,14 +1,15 @@
 package users_pack;
 import rides.Offer;
 import rides.Ride;
+import transportme.TransportMe;
 
 public class Client extends User {
-    public static int id=0;
+    private int id=0;
     Ride rideRequest;
 
     public Client(String userName, String mobileNumber,String password,String email){
         super(userName, mobileNumber,password,email);
-        id++;
+        this.id=count;
     }
     // Email attribute is optional
     public Client(String userName, String mobileNumber,String password){
@@ -16,24 +17,32 @@ public class Client extends User {
         id++;
         email="";
     }
-    public boolean requestRide(String source,String destination){
-        // if area exists
+
+    public int getId() {
+        return id;
+    }
+
+    public void requestRide(String source,String destination){
         Ride rideRequest = new Ride(this,source,destination);
-        //notify drivers with same area in favourite areas
-        // should set area and user to rideRequest obj
-        return true;
+        boolean status;
+        status=rideRequest.notifyDrivers(source);
+        if (status){
+            TransportMe.rides.add(rideRequest);
+            System.out.println("Requested successfully");
+        }
+        else {
+            System.out.println("No drivers in Your area");
+        }
     }
     public void viewOffers(){
         for (Offer offer:rideRequest.offers){
             offer.getOfferInfo();
         }
     }
-    public void add_rating(Driver dr , int r)
+    public void addRating(Driver dr , int r)
     {
-
         Rating rate = new Rating(this,r);
         dr.list.add(rate);
-
     }
 
 }

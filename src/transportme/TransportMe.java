@@ -20,7 +20,6 @@ public class TransportMe {
 
         System.out.println("User is successfully registered");
     }
-    
     public static void login(String username, String password){
         if(searchRegisteredUser(username)){
             for(User u : registeredUsers){
@@ -34,7 +33,6 @@ public class TransportMe {
             System.out.println("user not found");
         }
     }
-    
     public static boolean searchRegisteredUser(String username){
         for(User u : registeredUsers){
             if(u.getUsername().equals(username))
@@ -44,7 +42,14 @@ public class TransportMe {
     }
     
     public static void main(String[] args) {
-        
+        Client c1 = new Client("esraa","15","146584");
+        Client c2 = new Client("esraa","15","146584");
+        Client c3 = new Client("fshe","15","146584");
+        Client c4 = new Client("esrhgdaa","15","146584");
+        System.out.println(c1.getId());
+        System.out.println(c2.getId());
+        System.out.println(c3.getId());
+        System.out.println(c4.getId());
     }
     
 }

@@ -10,6 +10,7 @@ public class Rating {
         client = c;
         rating = r;
     }
+
     public String tostring()
     {
         return "rate " + rating +"/n";

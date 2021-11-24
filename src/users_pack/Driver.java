@@ -7,8 +7,8 @@ import java.util.List;
 public class Driver extends User{
     private int id;
     private String drivingLicense, nationalID;
-    public List<String> favAreas;
-    public List<Ride> ridesInFavAreas=null;
+    public ArrayList<String> favAreas=new ArrayList<String>();
+    public ArrayList<Ride> ridesInFavAreas= new ArrayList<Ride>();
     public ArrayList <Rating> list = new ArrayList<Rating>();
 
     
@@ -62,5 +62,8 @@ public class Driver extends User{
 
     public String getNationalID() {
         return nationalID;
+    }
+    public void setFavAreas(String area){
+        favAreas.add(area);
     }
 }

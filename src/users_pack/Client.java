@@ -5,7 +5,7 @@ import transportme.TransportMe;
 
 public class Client extends User {
     private int id=0;
-    Ride rideRequest;
+    Ride rideRequest=null;
 
     public Client(String userName, String mobileNumber,String password,String email){
         super(userName, mobileNumber,password,email);
@@ -24,6 +24,7 @@ public class Client extends User {
         status=rideRequest.notifyDrivers(source);
         if (status){
             TransportMe.rides.add(rideRequest);
+            this.rideRequest=rideRequest;
             System.out.println("Requested successfully");
         }
         else {
@@ -31,14 +32,21 @@ public class Client extends User {
         }
     }
     public void viewOffers(){
-        if(rideRequest.offers.size()==0||rideRequest.offers==null)
+        if(this.rideRequest==null)
+        {
+            System.out.println("no Rides yet.");
+        }
+        else if(rideRequest.offers==null||rideRequest.offers.size()==0)
         {
             System.out.println("no offers yet.");
         }
 
-        for (Offer offer:rideRequest.offers){
-            offer.getOfferInfo();
+        else {
+            for (Offer offer:rideRequest.offers){
+                offer.getOfferInfo();
+            }
         }
+
     }
     public void addRating(Driver dr , int r) {
         Rating rate = new Rating(this,r);

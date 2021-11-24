@@ -55,7 +55,7 @@ public class TransportMe {
                 System.out.println("Enter driver's name .");
                 String name;
                 int rating;
-                name = input.nextLine();
+                name = input.next();
                 if (searchDriver(name)){
                     for (Driver driver: TransportMe.drivers){
                         if (driver.getUsername().equals(name)){
@@ -76,7 +76,6 @@ public class TransportMe {
                     System.out.println("There is no such driver in the system");
 
                 }
-
             }
             displayClientMenu();
         }
@@ -84,13 +83,14 @@ public class TransportMe {
     public static void displayDriverMenu(){
         System.out.println("1-List Rides in Favourite Area.");
         System.out.println("2-Display Rating List.");
-        System.out.println("3-Back.");
+        System.out.println("3-add favourite area.");
+        System.out.println("4-Back.");
         choice = input.nextInt();
-        while (choice!=3){
+        while (choice!=4){
             if (choice==1) {
                 System.out.println("Enter source area name.");
                 String source;
-                source = input.nextLine();
+                source = input.next();
                 ((Driver) loggedIn).listRides(source);
                 System.out.println("=================================");
                 System.out.println("1-Suggest Price for ride");
@@ -112,8 +112,15 @@ public class TransportMe {
             }
             if (choice==2) {
                 ((Driver) loggedIn).showRatingList();
+                displayDriverMenu();
             }
+            if (choice==3) {
+                System.out.println("Enter favourite area name.");
+                String area = input.next();
+                ((Driver) loggedIn).setFavAreas(area);
+                displayDriverMenu();
 
+            }
         }
 
     }
@@ -128,9 +135,10 @@ public class TransportMe {
                 systemAdmin.listPendingRegistrations();
                 System.out.println("1-Choose Driver To Approve or Reject.");
                 System.out.println("2-Back.");
+                choice=input.nextInt();
                 if (choice==1){
                     System.out.println("Enter Driver's user name");
-                    String name = input.nextLine();
+                    String name = input.next();
                     for (Driver driver: pendingRegistrations){
                         if (driver.getUsername().equals(name)){
                             System.out.println("1-Approve Driver.");
@@ -138,9 +146,11 @@ public class TransportMe {
                             choice=input.nextInt();
                             if (choice==1){
                                 systemAdmin.acceptRegistration(name);
+                                break;
                             }
-                            if (choice==1){
+                            if (choice==2){
                                 systemAdmin.rejectRegistration(name);
+                                break;
                             }
                         }
                     }
@@ -259,7 +269,6 @@ public class TransportMe {
                     register(ip);
                     break;
                 }
-
             }
             // signIn
             if (choice == 2) {

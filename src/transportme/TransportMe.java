@@ -171,11 +171,14 @@ public class TransportMe {
                 String name = input.next();
                 for (User user :registeredUsers){
                     if (user.getUsername().equals(name)){
-                        systemAdmin.suspendUser(user);
+                        systemAdmin.suspendUser(user.getUsername());
+                        System.out.println("suspended successfully");
                     }
                     else {
                         System.out.println("user not found");
+
                     }
+                    displayAdminMenu();
                 }
             }
             if (choice==3){
@@ -183,15 +186,16 @@ public class TransportMe {
                 String name = input.next();
                 for (User user :suspendedUsers){
                     if (user.getUsername().equals(name)){
-                        systemAdmin.unSuspendUser(user);
+                        systemAdmin.unSuspendUser(user.getUsername());
                     }
                     else {
                         System.out.println("user not found");
                     }
                 }
+                displayAdminMenu();
             }
             if (choice==4){
-                return;
+                displayAdminMenu();
             }
         }
     }
@@ -260,6 +264,7 @@ public class TransportMe {
     static Scanner input = new Scanner(System.in);
     static int choice;
     static int ip;
+
     public static void main(String[] args) {
         System.out.println("=======WELCOME TO TRANSPORT ME , PLEASE ENTER CHOICE NUMBER=======");
         displayMenu();
@@ -281,7 +286,17 @@ public class TransportMe {
                 System.out.println("ENTER YOUR USER NAME AND PASSWORD");
                 String userName = input.next();
                 String password = input.next();
-                boolean status =login(userName,password);
+                boolean suspended = false;
+                boolean status = false;
+                for (User user : suspendedUsers){
+                    if(user.getUsername().equals(userName)){
+                        suspended = true;
+                    }
+                }
+                if(!suspended) {status =login(userName,password);}else{
+                    System.out.print("user is suspended");
+                    status = false;
+                }
                 if (status){
                     if (loggedIn instanceof Client){
                         displayClientMenu();

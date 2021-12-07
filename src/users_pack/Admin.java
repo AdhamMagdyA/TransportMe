@@ -11,12 +11,26 @@ public class Admin extends User{
     public static void addPendingRegistrations(Driver driver){
         TransportMe.pendingRegistrations.add(driver);
     }
-     public static void suspendUser (User user){
-         TransportMe.suspendedUsers.add(user);
+     public static void suspendUser (String username){
+         for( User user : TransportMe.registeredUsers ) {
+             if(user.getUsername().equals(username) ){
+                 TransportMe.registeredUsers.remove(user);
+                 TransportMe.suspendedUsers.add(user);
+         }
+         }
+
+
+
     }
-       public static void unSuspendUser(User user){
-           TransportMe.registeredUsers.add(user);
-    }
+       public static void unSuspendUser(String username) {
+           for (User user : TransportMe.registeredUsers) {
+               if (user.getUsername().equals(username)) {
+                   TransportMe.registeredUsers.add(user);
+                   TransportMe.suspendedUsers.remove(user);
+               }
+
+           }
+       }
     public void listPendingRegistrations(){
         for (Driver driver : TransportMe.pendingRegistrations){
             System.out.println("driver name is :" +driver.getUsername());

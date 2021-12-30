@@ -154,8 +154,9 @@ public class TransportMe {
                                 systemAdmin.acceptRegistration(name);
                                 break;
                             }
+                            // this code is not working for now
                             if (choice==2){
-                                systemAdmin.rejectRegistration(name);
+                                //systemAdmin.rejectRegistration(name);
                                 break;
                             }
                         }
@@ -249,6 +250,7 @@ public class TransportMe {
             Client client = new Client(userName,mobileNumber,password,email);
             storeUser(client);
         }
+        // this code is not working for now
         if (ch==2){
             System.out.println("ENTER YOUR INFORMATION AS FOLLOW: USERNAME, MOBILE NUMBER, PASSWORD, EMAIL, NATIONAL ID, DRIVING LICENCE");
             String userName = input.next();
@@ -258,7 +260,7 @@ public class TransportMe {
             String nationalID = input.next();
             String drivingLicence = input.next();
             Driver driver = new Driver(userName,mobileNumber,password,email,nationalID,drivingLicence);
-            Admin.addPendingRegistrations(driver);
+            //Admin.addPendingRegistrations(driver);
         }
     }
     static Scanner input = new Scanner(System.in);

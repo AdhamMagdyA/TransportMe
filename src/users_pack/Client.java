@@ -46,11 +46,25 @@ public class Client extends User {
                 offer.getOfferInfo();
             }
         }
-
     }
     public void addRating(Driver dr , int r) {
         Rating rate = new Rating(this,r);
         dr.list.add(rate);
+    }
+
+    public boolean acceptOffer(int id){
+        for (Offer offer:rideRequest.offers){
+            if (offer.getId() == id)
+            {
+                // means that the driver is now handling a request
+                offer.getDriver().setAvailableForHandlingRequests(false);
+                // request resolved
+                rideRequest = null;
+
+                return true;
+            }
+        }
+        return false;
     }
 
 }

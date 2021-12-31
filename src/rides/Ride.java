@@ -1,4 +1,6 @@
 package rides;
+import storage.UserListStorage;
+import storage.UserStorage;
 import transportme.TransportMe;
 import users_pack.Client;
 import users_pack.Driver;
@@ -10,7 +12,9 @@ public class Ride {
     private int id;
     private String source;
     private String destination;
+    private UserStorage userStorage = new UserListStorage();
     public List<Offer> offers;
+
 
     public Ride(Client client,String source,String destination) {
         this.client =client;
@@ -18,7 +22,7 @@ public class Ride {
         this.destination=destination;
         count++;
         this.id=count;
- }
+    }
     public int getId() {
         return id;
     }
@@ -36,12 +40,14 @@ public class Ride {
         offers.add(offer);
         System.out.println("Offer added successfully");
     }
+
+    // transformed storage system and added new requirement
     public boolean notifyDrivers(String source){
         boolean found=false;
-        for (Driver driver : TransportMe.drivers){
+        for (Driver driver : userStorage.getRegisteredDrivers()){
             for (String area : driver.favAreas){
-                if (area.equals(source)){
-                    driver.ridesInFavAreas.add(this);
+                if ( area.equals(source) && driver.getAvailableForHandlingRequests() ){
+                    driver.availableRides.add(this);
                     found=true;
                 }
             }

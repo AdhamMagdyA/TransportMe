@@ -39,7 +39,13 @@ public class UserListStorage extends UserStorage{
     }
 
     @Override
+    public ArrayList<Driver> getRegisteredDrivers() {
+        return registeredDrivers;
+    }
+
+    @Override
     public List<Driver> getPendingRegistrations() {
         return pendingRegistrations;
     }
+
 }

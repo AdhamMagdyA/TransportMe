@@ -26,4 +26,12 @@ public class Offer {
         System.out.println("Suggested price is"+price);
         System.out.println("=================================");
     }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

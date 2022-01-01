@@ -4,6 +4,8 @@ import rides.Ride;
 
 import java.util.ArrayList;
 
+import Events.Event;
+
 public class Driver extends User{
     private int id;
     private String drivingLicense, nationalID;
@@ -11,7 +13,9 @@ public class Driver extends User{
     public ArrayList<Ride> availableRides = new ArrayList<Ride>();
     public ArrayList<Rating> list = new ArrayList<Rating>();
     private boolean availableForHandlingRequests;
-
+    private boolean arrivedLocation=false;
+    private boolean arrivedDestination=false;
+    Event E;
     
     public Driver(String userName, String mobileNumber,String password,String email,String drivingLicense, String nationalID){
         super(userName, mobileNumber,password,email);
@@ -31,10 +35,12 @@ public class Driver extends User{
         }
         return found;
     }
+
     public void suggestPrice(double price,int rideId){
         for(Ride ride: availableRides){
             if(ride.getId()==rideId){
                 Offer offer = new Offer(ride,price,this);
+                E.setRidePrice(this.userName, price);
             }
         }
     }
@@ -69,6 +75,16 @@ public class Driver extends User{
     public void setFavAreas(String area){
         favAreas.add(area);
     }
+
+    public void arrivedToUserLocation(String userName){
+       this.arrivedLocation=true;
+       E.captainArrivedToLocation(this.userName, userName);
+    }   
+    
+    public void arrivedToDestination(String userName){
+        this.arrivedDestination=true;
+        E.captainArrivedToDestination(this.userName, userName);
+     }  
     public boolean getAvailableForHandlingRequests(){return getAvailableForHandlingRequests();}
     public void setAvailableForHandlingRequests(boolean availableForHandlingRequests) {
         this.availableForHandlingRequests = availableForHandlingRequests;

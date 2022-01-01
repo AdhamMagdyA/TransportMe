@@ -7,11 +7,15 @@ import users_pack.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import rides.Ride;
+
 public class UserListStorage extends UserStorage{
     public static List<Driver> pendingRegistrations=new ArrayList<>();
     public static ArrayList<User> registeredUsers=new ArrayList<>() ;
     public static ArrayList<Driver> registeredDrivers =new ArrayList<>();
     public static ArrayList<Client> registeredClients=new ArrayList<>();
+    
+    public static ArrayList<Ride> ridesEvents=new ArrayList<>();
 
     @Override
     public boolean addRegisteredUser(User user) {
@@ -46,6 +50,12 @@ public class UserListStorage extends UserStorage{
     @Override
     public List<Driver> getPendingRegistrations() {
         return pendingRegistrations;
+    }
+
+    @Override
+    public ArrayList<Ride> getRidesEvents() {
+       
+        return ridesEvents;
     }
 
 }

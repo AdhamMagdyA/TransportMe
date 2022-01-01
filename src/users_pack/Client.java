@@ -1,4 +1,5 @@
 package users_pack;
+import Events.Event;
 import rides.Offer;
 import rides.Ride;
 import transportme.TransportMe;
@@ -6,7 +7,7 @@ import transportme.TransportMe;
 public class Client extends User {
     private int id=0;
     Ride rideRequest=null;
-
+  Event E;
     public Client(String userName, String mobileNumber,String password,String email){
         super(userName, mobileNumber,password,email);
         this.id=count;
@@ -60,7 +61,7 @@ public class Client extends User {
                 offer.getDriver().setAvailableForHandlingRequests(false);
                 // request resolved
                 rideRequest = null;
-
+                E.acceptCaptainPrice(this.userName);
                 return true;
             }
         }

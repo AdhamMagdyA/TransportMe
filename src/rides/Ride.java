@@ -6,6 +6,8 @@ import users_pack.Client;
 import users_pack.Driver;
 import java.util.List;
 
+import Events.Event;
+
 public class Ride {
     private static int count=0;
     private Client client;
@@ -14,8 +16,9 @@ public class Ride {
     private String destination;
     private UserStorage userStorage = new UserListStorage();
     public List<Offer> offers;
-
     private int numberOfPassengers;
+
+    public Event event;
 
     public Ride(Client client,String source,String destination,int numberOfPassengers) {
         this.client =client;

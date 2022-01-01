@@ -18,8 +18,8 @@ public class Client extends User {
 
     }
 
-    public void requestRide(String source,String destination){
-        Ride rideRequest = new Ride(this,source,destination);
+    public void requestRide(String source,String destination,int numberOfPassengers){
+        Ride rideRequest = new Ride(this,source,destination,numberOfPassengers);
         boolean status;
         status=rideRequest.notifyDrivers(source);
         if (status){

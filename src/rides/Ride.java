@@ -15,11 +15,14 @@ public class Ride {
     private UserStorage userStorage = new UserListStorage();
     public List<Offer> offers;
 
+    private int numberOfPassengers;
 
-    public Ride(Client client,String source,String destination) {
+    public Ride(Client client,String source,String destination,int numberOfPassengers) {
         this.client =client;
         this.source=source;
         this.destination=destination;
+        this.numberOfPassengers = numberOfPassengers;
+        this.numberOfPassengers = numberOfPassengers;
         count++;
         this.id=count;
     }

@@ -52,7 +52,7 @@ public class TransportMe {
                 String destination;
                 source = input.next();
                 destination = input.next();
-                ((Client) loggedIn).requestRide(source,destination);
+                ((Client) loggedIn).requestRide(source,destination,1);
             }
             if (choice==2){
                 ((Client) loggedIn).viewOffers();
